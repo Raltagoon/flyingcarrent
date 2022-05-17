@@ -7,7 +7,7 @@ public class UserApi
         // create
         app.MapPost("/rentcars/register", [AllowAnonymous] async (IUserRepository repository, User user) =>
         {
-            if (repository.GetUserByUsername(user.UserName) == null)
+            if (await repository.GetUserByUsername(user.UserName) != null)
             {
                 return Results.Problem("already exists");
             }
