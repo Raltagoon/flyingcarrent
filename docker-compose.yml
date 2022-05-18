@@ -11,11 +11,11 @@ services:
   flyingcars:
     build: .
     environment:
-      DBServer: "ms-sql-server"
-      DBPort: "1433"
-      Database: "flyingcardb"
-      DBUser: "SA"
-      DBPassword: "Passw0rd2022"
+      Server: "ms-sql-server"
+      Port: "1433"
+      Name: "flyingcardb"
+      Username: "SA"
+      Password: "Passw0rd2022"
     ports:
     - "8080:80"
     depends_on:

@@ -7,7 +7,6 @@ using System.Text;
 var builder = WebApplication.CreateBuilder(args);
 RegiSterServices(builder.Services);
 
-
 var app = builder.Build();
 Configure(app);
 new CarApi().Register(app);
@@ -17,12 +16,6 @@ app.Run();
 void RegiSterServices(IServiceCollection services)
 {
     var configuration = builder.Configuration;
-    var server = configuration["DBServer"];
-    var port = configuration["DBport"];
-    var database = configuration["Database"];
-    var user = configuration["DBUser"];
-    var password = configuration["DBPassword"];
-
     services.AddEndpointsApiExplorer();
     services.AddSwaggerGen(options =>
     {
@@ -52,9 +45,12 @@ void RegiSterServices(IServiceCollection services)
               }
         });
     });
+    var connection = new ConnectionConfig(configuration);
+    Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAA");
+    Console.WriteLine(connection.OnGet().Content);
     services.AddDbContext<CarContext>(options =>
     {
-        options.UseSqlServer($"Server={server},{port};Database={database};User Id={user};Password={password}");
+        options.UseSqlServer(connection.OnGet().Content);
     });
     services.AddScoped<ICarRepository, CarRepository>();
     services.AddScoped<IUserRepository, UserRepository>();
