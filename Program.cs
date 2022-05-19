@@ -45,12 +45,9 @@ void RegiSterServices(IServiceCollection services)
               }
         });
     });
-    var connection = new ConnectionConfig(configuration);
-    Console.WriteLine("AAAAAAAAAAAAAAAAAAAAAA");
-    Console.WriteLine(connection.OnGet().Content);
     services.AddDbContext<CarContext>(options =>
     {
-        options.UseSqlServer(connection.OnGet().Content);
+        options.UseSqlServer(configuration.GetConnectionString("Default"));
     });
     services.AddScoped<ICarRepository, CarRepository>();
     services.AddScoped<IUserRepository, UserRepository>();
