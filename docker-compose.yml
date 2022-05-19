@@ -11,11 +11,7 @@ services:
   flyingcars:
     build: .
     environment:
-      Server: "ms-sql-server"
-      Port: "1433"
-      Name: "flyingcardb"
-      Username: "SA"
-      Password: "Passw0rd2022"
+      CONNECTIONSTRINGS__Default: "Server=ms-sql-server,1433;Database=flyingcardb;User Id=SA;Password=Passw0rd2022"
     ports:
     - "8080:80"
     depends_on:
